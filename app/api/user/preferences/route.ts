@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { UserService } from '@/lib/services/userService';
+import { UserService } from '@/lib/services';
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
