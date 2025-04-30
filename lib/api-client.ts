@@ -5,6 +5,62 @@
  * It handles authentication, error handling, and provides typed methods for each API endpoint.
  */
 
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error('Missing Supabase environment variables')
+}
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+
+export async function getFinancialData(ticker: string) {
+  const { data, error } = await supabase
+    .from('financial_data')
+    .select('*')
+    .eq('ticker', ticker)
+    .single()
+
+  if (error) {
+    console.error('Error fetching financial data:', error)
+    throw error
+  }
+
+  return data
+}
+
+export async function getCompanyInfo(ticker: string) {
+  const { data, error } = await supabase
+    .from('companies')
+    .select('*')
+    .eq('ticker', ticker)
+    .single()
+
+  if (error) {
+    console.error('Error fetching company info:', error)
+    throw error
+  }
+
+  return data
+}
+
+export async function getIndustryData(industry: string) {
+  const { data, error } = await supabase
+    .from('industry_data')
+    .select('*')
+    .eq('industry', industry)
+    .single()
+
+  if (error) {
+    console.error('Error fetching industry data:', error)
+    throw error
+  }
+
+  return data
+}
+
 /**
  * Base API configuration
  */
@@ -48,7 +104,7 @@ interface ApiResponse<T> {
 async function apiRequest<T>(endpoint: string, options: RequestOptions = {}): Promise<ApiResponse<T>> {
   try {
     // Prepare request headers
-    const headers = {
+    const headers: { [key: string]: string } = {
       "Content-Type": "application/json",
       ...options.headers,
     }
@@ -94,11 +150,11 @@ async function apiRequest<T>(endpoint: string, options: RequestOptions = {}): Pr
       status: response.status,
     }
   } catch (error) {
-    // Handle network or other errors
+    console.error("API request failed:", error)
     return {
       data: null,
       error: error instanceof Error ? error.message : "Unknown error occurred",
-      status: 0,
+      status: 500,
     }
   }
 }

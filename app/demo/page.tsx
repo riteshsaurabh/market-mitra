@@ -8,11 +8,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Upload, TrendingUp, PieChart, Download, Check } from "lucide-react"
+import { ArrowRight, Upload, TrendingUp, PieChart as PieChartIcon, Download, Check } from "lucide-react"
 import { MainNav } from "@/components/main-nav"
 import { SiteFooter } from "@/components/site-footer"
 import { useToast } from "@/components/ui/use-toast"
-import { Chart } from "@/components/ui/chart"
+import { Chart, ChartContainer, ChartHeader, ChartTitle, ChartLegend, ChartLegendItem } from "@/components/ui/chart"
 
 export default function DemoPage() {
   const { toast } = useToast()
@@ -40,6 +40,92 @@ export default function DemoPage() {
   const resetDemo = () => {
     setCurrentStep(1)
     setShowResults(false)
+  }
+
+  const pieChartData = {
+    labels: ["Product A", "Product B", "Product C"],
+    datasets: [
+      {
+        data: [300, 200, 100],
+        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+        hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
+      }
+    ]
+  }
+
+  const pieChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false
+      }
+    }
+  }
+
+  const barChartData = {
+    labels: ["Revenue", "Profit Margin", "Operating Income", "Net Income"],
+    datasets: [
+      {
+        label: "AAPL",
+        data: [394.3, 25.3, 109.2, 94.3],
+        backgroundColor: "rgba(54, 162, 235, 0.5)",
+        borderColor: "rgb(54, 162, 235)",
+        borderWidth: 1
+      },
+      {
+        label: "Industry Average",
+        data: [285.1, 21.2, 78.5, 67.2],
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        borderColor: "rgb(255, 99, 132)",
+        borderWidth: 1
+      }
+    ]
+  }
+
+  const barChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+
+  const lineChartData = {
+    labels: ["Q1", "Q2", "Q3", "Q4"],
+    datasets: [
+      {
+        label: "Revenue",
+        data: [85.2, 92.4, 97.1, 103.5],
+        borderColor: "rgb(75, 192, 192)",
+        tension: 0.1
+      },
+      {
+        label: "EPS",
+        data: [1.52, 1.65, 1.73, 1.88],
+        borderColor: "rgb(153, 102, 255)",
+        tension: 0.1
+      }
+    ]
+  }
+
+  const lineChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
   }
 
   return (
@@ -99,7 +185,7 @@ export default function DemoPage() {
                         onChange={(e) => setTicker(e.target.value)}
                       />
                       <p className="text-sm text-muted-foreground">
-                        For this demo, we'll use AAPL (Apple Inc.) as an example
+                        For this demo, we&apos;ll use AAPL (Apple Inc.) as an example
                       </p>
                     </div>
                     <Button onClick={handleNextStep}>
@@ -120,7 +206,7 @@ export default function DemoPage() {
                         <p className="text-xs text-muted-foreground">PDF, Excel, CSV (max 10MB)</p>
                       </div>
                       <p className="text-sm text-muted-foreground">
-                        For this demo, we'll skip the upload and use our pre-loaded data
+                        For this demo, we&apos;ll skip the upload and use our pre-loaded data
                       </p>
                     </div>
                     <div className="flex gap-2">
@@ -219,7 +305,7 @@ export default function DemoPage() {
                         Apple (AAPL) reported strong financial performance in the latest quarter, with revenue exceeding
                         analyst expectations by 3.2%. The services segment continues to be a growth driver, showing an
                         18% year-over-year increase. While iPhone sales slightly declined in emerging markets, the
-                        company's overall market position remains strong with expanding margins and robust cash flow.
+                        company&apos;s overall market position remains strong with expanding margins and robust cash flow.
                         The board approved a 5% increase in quarterly dividend and authorized an additional $90 billion
                         for share repurchases.
                       </p>
@@ -261,7 +347,7 @@ export default function DemoPage() {
 
                       <div>
                         <h3 className="text-lg font-medium mb-2 flex items-center gap-2">
-                          <PieChart className="h-5 w-5 text-primary" />
+                          <PieChartIcon className="h-5 w-5 text-primary" />
                           Key Financial Ratios
                         </h3>
                         <div className="grid grid-cols-2 gap-4">
@@ -293,12 +379,22 @@ export default function DemoPage() {
                     <CardDescription>Revenue by product category</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <Chart
-                      type="pie"
-                      data={{
-                        labels: ["iPhone", "Mac", "iPad", "Wearables", "Services"],
-                        datasets: [
-                          {
+                    <ChartContainer>
+                      <ChartHeader>
+                        <ChartTitle>Revenue Distribution</ChartTitle>
+                        <ChartLegend>
+                          <ChartLegendItem label="iPhone" color="hsl(198, 100%, 30%)" />
+                          <ChartLegendItem label="Mac" color="hsl(198, 100%, 40%)" />
+                          <ChartLegendItem label="iPad" color="hsl(198, 100%, 50%)" />
+                          <ChartLegendItem label="Wearables" color="hsl(198, 100%, 60%)" />
+                          <ChartLegendItem label="Services" color="hsl(175, 100%, 45%)" />
+                        </ChartLegend>
+                      </ChartHeader>
+                      <Chart
+                        type="pie"
+                        data={{
+                          labels: ["iPhone", "Mac", "iPad", "Wearables", "Services"],
+                          datasets: [{
                             data: [52, 10, 8, 9, 21],
                             backgroundColor: [
                               "hsl(198, 100%, 30%)",
@@ -307,11 +403,19 @@ export default function DemoPage() {
                               "hsl(198, 100%, 60%)",
                               "hsl(175, 100%, 45%)",
                             ],
-                          },
-                        ],
-                      }}
-                      className="max-h-80"
-                    />
+                          }],
+                        }}
+                        options={{
+                          responsive: true,
+                          plugins: {
+                            legend: {
+                              display: false
+                            }
+                          }
+                        }}
+                        className="w-full h-[300px]"
+                      />
+                    </ChartContainer>
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -323,32 +427,47 @@ export default function DemoPage() {
                     <CardDescription>Key financial ratios compared to industry averages</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <Chart
-                      type="bar"
-                      options={{
-                        scales: {
-                          y: {
-                            beginAtZero: true,
+                    <ChartContainer>
+                      <ChartHeader>
+                        <ChartTitle>Financial Metrics Comparison</ChartTitle>
+                        <ChartLegend>
+                          <ChartLegendItem label="AAPL" color="hsl(198, 100%, 30%)" />
+                          <ChartLegendItem label="Industry Average" color="hsl(175, 100%, 82%)" />
+                        </ChartLegend>
+                      </ChartHeader>
+                      <Chart
+                        type="bar"
+                        data={{
+                          labels: ["P/E", "P/B", "ROE", "ROA", "Debt/Equity", "Current Ratio"],
+                          datasets: [
+                            {
+                              label: "AAPL",
+                              data: [28.5, 35.2, 42.1, 18.7, 1.2, 1.5],
+                              backgroundColor: "hsl(198, 100%, 30%)",
+                            },
+                            {
+                              label: "Industry Avg",
+                              data: [22.3, 28.7, 35.4, 15.2, 1.5, 1.8],
+                              backgroundColor: "hsl(175, 100%, 82%)",
+                            },
+                          ],
+                        }}
+                        options={{
+                          responsive: true,
+                          plugins: {
+                            legend: {
+                              display: false
+                            }
                           },
-                        },
-                      }}
-                      data={{
-                        labels: ["P/E", "P/B", "ROE", "ROA", "Debt/Equity", "Current Ratio"],
-                        datasets: [
-                          {
-                            label: "AAPL",
-                            data: [28.5, 35.2, 42.1, 18.7, 1.2, 1.5],
-                            backgroundColor: "hsl(198, 100%, 30%)",
+                          scales: {
+                            y: {
+                              beginAtZero: true,
+                            },
                           },
-                          {
-                            label: "Industry Avg",
-                            data: [22.3, 28.7, 35.4, 15.2, 1.5, 1.8],
-                            backgroundColor: "hsl(175, 100%, 82%)",
-                          },
-                        ],
-                      }}
-                      className="h-80"
-                    />
+                        }}
+                        className="w-full h-[300px]"
+                      />
+                    </ChartContainer>
 
                     <div className="mt-6 space-y-4">
                       <h3 className="text-lg font-medium">Ratio Insights</h3>
@@ -396,34 +515,49 @@ export default function DemoPage() {
                     <CardDescription>Quarterly earnings trends and projections</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <Chart
-                      type="line"
-                      options={{
-                        scales: {
-                          y: {
-                            beginAtZero: false,
+                    <ChartContainer>
+                      <ChartHeader>
+                        <ChartTitle>Quarterly Performance</ChartTitle>
+                        <ChartLegend>
+                          <ChartLegendItem label="Revenue" color="hsl(198, 100%, 30%)" />
+                          <ChartLegendItem label="EPS" color="hsl(175, 100%, 45%)" />
+                        </ChartLegend>
+                      </ChartHeader>
+                      <Chart
+                        type="line"
+                        data={{
+                          labels: ["Q1 2022", "Q2 2022", "Q3 2022", "Q4 2022", "Q1 2023", "Q2 2023", "Q3 2023 (Est)"],
+                          datasets: [
+                            {
+                              label: "Revenue (Billions $)",
+                              data: [83.4, 82.1, 90.1, 94.8, 96.1, 94.8, 93.5],
+                              borderColor: "hsl(198, 100%, 30%)",
+                              backgroundColor: "transparent",
+                            },
+                            {
+                              label: "EPS ($)",
+                              data: [1.24, 1.2, 1.29, 1.4, 1.47, 1.52, 1.49],
+                              borderColor: "hsl(175, 100%, 45%)",
+                              backgroundColor: "transparent",
+                            },
+                          ],
+                        }}
+                        options={{
+                          responsive: true,
+                          plugins: {
+                            legend: {
+                              display: false
+                            }
                           },
-                        },
-                      }}
-                      data={{
-                        labels: ["Q1 2022", "Q2 2022", "Q3 2022", "Q4 2022", "Q1 2023", "Q2 2023", "Q3 2023 (Est)"],
-                        datasets: [
-                          {
-                            label: "Revenue (Billions $)",
-                            data: [83.4, 82.1, 90.1, 94.8, 96.1, 94.8, 93.5],
-                            borderColor: "hsl(198, 100%, 30%)",
-                            backgroundColor: "transparent",
+                          scales: {
+                            y: {
+                              beginAtZero: false,
+                            },
                           },
-                          {
-                            label: "EPS ($)",
-                            data: [1.24, 1.2, 1.29, 1.4, 1.47, 1.52, 1.49],
-                            borderColor: "hsl(175, 100%, 45%)",
-                            backgroundColor: "transparent",
-                          },
-                        ],
-                      }}
-                      className="h-80"
-                    />
+                        }}
+                        className="w-full h-[300px]"
+                      />
+                    </ChartContainer>
 
                     <div className="mt-6 grid md:grid-cols-2 gap-6">
                       <div className="space-y-4">
