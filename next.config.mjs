@@ -31,6 +31,7 @@ const nextConfig = {
     config.resolve.alias = {
       ...config.resolve.alias,
       '@': process.cwd(),
+      '@/lib': `${process.cwd()}/lib`,
     };
     return config;
   },
