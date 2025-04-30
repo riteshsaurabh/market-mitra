@@ -73,3 +73,9 @@ ENV/
 .vscode/
 *.swp
 *.swo
+
+# Embedded repositories
+aspirants-ai/
+finsights-ai/
+she sapien/
+think-to-build/
