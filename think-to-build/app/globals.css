@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 96%;
+    --foreground: 222 14% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 14% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 14% 12%;
+    --primary: 252 100% 69%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222 14% 12%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 171 64% 47%;
+    --accent-foreground: 222 14% 12%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 252 100% 69%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222 14% 12%;
+    --foreground: 0 0% 96%;
+    --card: 222 14% 12%;
+    --card-foreground: 0 0% 96%;
+    --popover: 222 14% 12%;
+    --popover-foreground: 0 0% 96%;
+    --primary: 252 100% 69%;
+    --primary-foreground: 0 0% 96%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 0 0% 96%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 171 64% 47%;
+    --accent-foreground: 0 0% 96%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 96%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 252 100% 69%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading font-bold;
+  }
+}
+
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-electricIndigo to-teal;
+}
+
+.gradient-bg {
+  @apply bg-gradient-to-r from-electricIndigo to-teal;
+}
+
+.card-hover {
+  @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+}
+
+.abstract-shape {
+  @apply absolute opacity-50 blur-xl;
+}
+
+.abstract-shape-1 {
+  @apply abstract-shape bg-electricIndigo/30 w-64 h-64 rounded-full -top-20 -left-20;
+}
+
+.abstract-shape-2 {
+  @apply abstract-shape bg-teal/30 w-80 h-80 rounded-full -bottom-40 -right-40;
+}
+
+.abstract-shape-3 {
+  @apply abstract-shape bg-deepBlue/20 w-72 h-72 rounded-full top-1/2 -right-36;
+}
+
+.timeline-dot {
+  @apply absolute w-4 h-4 rounded-full bg-electricIndigo z-10;
+}
+
+.timeline-line {
+  @apply absolute w-0.5 bg-electricIndigo/30 z-0;
+}

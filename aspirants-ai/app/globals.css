@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 215 25% 27%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 27%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 27%;
+
+    --primary: 215 50% 23%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 142 40% 30%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215 25% 40%;
+
+    --accent: 45 80% 44%;
+    --accent-foreground: 215 25% 27%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 215 25% 27%;
+
+    --radius: 0.5rem;
+
+    /* Chart colors */
+    --chart-1: 215 50% 23%;
+    --chart-2: 142 40% 30%;
+    --chart-3: 45 80% 44%;
+    --chart-4: 214 15% 91%;
+  }
+
+  .dark {
+    --background: 215 25% 15%;
+    --foreground: 210 40% 98%;
+
+    --card: 215 25% 20%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 215 25% 20%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 215 50% 30%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 142 40% 25%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 215 25% 25%;
+    --muted-foreground: 210 40% 80%;
+
+    --accent: 45 70% 35%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 215 25% 30%;
+    --input: 215 25% 30%;
+    --ring: 210 40% 80%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading font-bold;
+  }
+}
+
+/* Typography styles */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-merriweather);
+  font-weight: 700;
+}
+
+body {
+  font-family: var(--font-open-sans);
+}
+
+/* Custom utility classes */
+.text-navy {
+  color: #1a365d;
+}
+
+.text-forest {
+  color: #2d6a4f;
+}
+
+.text-gold {
+  color: #d4ac0d;
+}
+
+.bg-navy {
+  background-color: #1a365d;
+}
+
+.bg-forest {
+  background-color: #2d6a4f;
+}
+
+.bg-gold {
+  background-color: #d4ac0d;
+}
+
+.bg-lightgray {
+  background-color: #e5e7eb;
+}
